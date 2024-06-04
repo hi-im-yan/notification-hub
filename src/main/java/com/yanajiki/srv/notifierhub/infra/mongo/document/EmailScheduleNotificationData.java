@@ -10,23 +10,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-@Document(collation = "email_schedule_notification")
+@Document(collection = "email_schedule_notification")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
-public class EmailScheduleNotificationData extends BaseNotificationData {
+public class EmailScheduleNotificationData {
 
     @Id
     private String id;
+    private String sender;
+    private String receiver;
+    private String message;
+    private LocalDateTime scheduledTime;
     private final NotificationType type = NotificationType.EMAIL;
 
-    public EmailScheduleNotificationData(String id,
-                                         String sender,
-                                         String receiver,
-                                         String message,
-                                         LocalDateTime scheduledTime) {
-        super(sender, receiver, message, scheduledTime);
-        this.id = id;
-    }
 }
