@@ -10,12 +10,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-@Document(collection = "email_schedule_notification")
+@Document(collection = "sms_schedule_notification")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
-public class EmailScheduleNotificationData implements INotificationData {
+public class SmsScheduleNotificationData implements INotificationData{
 
     @Id
     private String id;
@@ -26,7 +26,7 @@ public class EmailScheduleNotificationData implements INotificationData {
     private NotificationType type;
 
     public void setType(NotificationType notificationType) {
-        this.type = NotificationType.EMAIL;
+        this.type = NotificationType.SMS;
     }
 
 }

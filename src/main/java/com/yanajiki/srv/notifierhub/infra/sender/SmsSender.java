@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class EmailSender implements NotificationSender {
+public class SmsSender implements NotificationSender {
     @Override
     public void send(Notification notification) {
-        log.info("Sending notification by email: {}", notification);
+        log.info("Sending notification by SMS: {}", notification);
     }
 }

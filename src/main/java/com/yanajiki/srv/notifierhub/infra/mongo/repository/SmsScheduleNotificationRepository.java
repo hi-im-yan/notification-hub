@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class EmailScheduleNotificationRepository implements NotificationRepository {
+public class SmsScheduleNotificationRepository implements NotificationRepository {
 
-    private final EmailScheduleNotificationMongoRepository mongoRepository;
+    private final SmsScheduleNotificationMongoRepository mongoRepository;
 
     @Override
     public Notification persist(Notification notification) {
-        var data = NotificationMapper.toEmailData(notification);
+        var data = NotificationMapper.toSmsData(notification);
 
         var savedData = mongoRepository.save(data);
 
@@ -36,7 +36,7 @@ public class EmailScheduleNotificationRepository implements NotificationReposito
 
     @Override
     public void delete(Notification notification) {
-        var toDelete = NotificationMapper.toEmailData(notification);
+        var toDelete = NotificationMapper.toSmsData(notification);
 
         mongoRepository.delete(toDelete);
     }

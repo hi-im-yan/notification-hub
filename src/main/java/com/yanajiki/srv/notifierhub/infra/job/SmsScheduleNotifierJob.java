@@ -3,8 +3,8 @@ package com.yanajiki.srv.notifierhub.infra.job;
 import com.yanajiki.srv.notifierhub.core.domain.Notification;
 import com.yanajiki.srv.notifierhub.core.domain.NotificationType;
 import com.yanajiki.srv.notifierhub.core.domain.usecase.NotifyUseCase;
-import com.yanajiki.srv.notifierhub.infra.mongo.repository.EmailScheduleNotificationRepository;
-import com.yanajiki.srv.notifierhub.infra.sender.EmailSender;
+import com.yanajiki.srv.notifierhub.infra.mongo.repository.SmsScheduleNotificationRepository;
+import com.yanajiki.srv.notifierhub.infra.sender.SmsSender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,25 +15,25 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class EmailScheduleNotifierJob {
-
+public class SmsScheduleNotifierJob {
     private final NotifyUseCase useCase;
-    private final EmailScheduleNotificationRepository repository;
-    private final EmailSender sender;
+    private final SmsScheduleNotificationRepository repository;
+    private final SmsSender sender;
 
     @Scheduled(cron = "0 * * * * *") // Executes every minute
     @Async
     public void executePeriodically() {
         saveMockPendingNotifications();
-        System.out.println("Executing email scheduler job...");
+        System.out.println("Executing sms scheduler job...");
         useCase.execute(repository, sender);
-        System.out.println("Finished email scheduler job...");
+        System.out.println("Finished sms scheduler job...");
     }
 
     private void saveMockPendingNotifications() {
         for (int i = 0; i < 100; i++) {
             repository.persist(generateMockNotification());
         }
+
     }
 
     private Notification generateMockNotification() {
@@ -43,7 +43,7 @@ public class EmailScheduleNotifierJob {
                 "RECEIVER",
                 "MESSAGE",
                 LocalDateTime.now(),
-                NotificationType.EMAIL
+                NotificationType.SMS
         );
     }
 }
