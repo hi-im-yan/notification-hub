@@ -41,6 +41,11 @@ public class EmailScheduleNotificationRepository implements NotificationReposito
         mongoRepository.delete(toDelete);
     }
 
+    @Override
+    public void deleteOverdue(int minutesOverdue) {
+        mongoRepository.deleteByScheduledTimeLessThan(LocalDateTime.now().minusMinutes(minutesOverdue));
+    }
+
     private LocalDateTime setSecondsAndNanoToZero(LocalDateTime time) {
         return time.withSecond(0).withNano(0);
     }

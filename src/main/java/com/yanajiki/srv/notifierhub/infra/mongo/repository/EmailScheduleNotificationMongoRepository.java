@@ -8,4 +8,7 @@ import java.util.List;
 
 public interface EmailScheduleNotificationMongoRepository extends MongoRepository<EmailScheduleNotificationData, String> {
     List<EmailScheduleNotificationData> findByScheduledTime(LocalDateTime scheduledTime);
+
+    void deleteByScheduledTimeLessThan(LocalDateTime time);
+
 }

@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component;
 public class EmailSender implements NotificationSender {
     @Override
     public void send(Notification notification) {
-//        log.info("Sending notification by email: {}", notification);
+        log.info("Sending notification by email: {}", notification);
     }
 }

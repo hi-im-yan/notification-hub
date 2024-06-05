@@ -2,9 +2,9 @@ package com.yanajiki.srv.notifierhub.infra.job;
 
 import com.yanajiki.srv.notifierhub.core.domain.Notification;
 import com.yanajiki.srv.notifierhub.core.domain.NotificationType;
-import com.yanajiki.srv.notifierhub.core.domain.usecase.NotifyUseCase;
+import com.yanajiki.srv.notifierhub.infra.mongo.repository.EmailScheduleNotificationRepository;
 import com.yanajiki.srv.notifierhub.infra.mongo.repository.PushBulletScheduleNotificationRepository;
-import com.yanajiki.srv.notifierhub.infra.sender.PushBulletSender;
+import com.yanajiki.srv.notifierhub.infra.mongo.repository.SmsScheduleNotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,35 +15,40 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class PushBulletScheduleNotifierJob {
-    private final NotifyUseCase useCase;
-    private final PushBulletScheduleNotificationRepository repository;
-    private final PushBulletSender sender;
+public class MockingScheduledNotificationsJob {
+
+    private final EmailScheduleNotificationRepository emailRepository;
+    private final PushBulletScheduleNotificationRepository pushBulletRepository;
+    private final SmsScheduleNotificationRepository smsRepository;
 
     @Scheduled(cron = "0 * * * * *") // Executes every minute
     @Async
     public void executePeriodically() {
         saveMockPendingNotifications();
-        System.out.println("Executing push_bullet scheduler job...");
-        useCase.execute(repository, sender);
-        System.out.println("Finished push_bullet scheduler job...");
     }
 
     private void saveMockPendingNotifications() {
         for (int i = 0; i < 100; i++) {
-            repository.persist(generateMockNotification());
+            emailRepository.persist(generateMockNotification(NotificationType.EMAIL));
         }
 
+        for (int i = 0; i < 100; i++) {
+            smsRepository.persist(generateMockNotification(NotificationType.SMS));
+        }
+
+        for (int i = 0; i < 100; i++) {
+            pushBulletRepository.persist(generateMockNotification(NotificationType.PUSHBULLET));
+        }
     }
 
-    private Notification generateMockNotification() {
+    private Notification generateMockNotification(NotificationType type) {
         return new Notification(
                 UUID.randomUUID().toString(),
                 "SENDER",
                 "RECEIVER",
                 "MESSAGE",
-                LocalDateTime.now(),
-                NotificationType.PUSHBULLET
+                LocalDateTime.now().plusMinutes(1),
+                type
         );
     }
 }

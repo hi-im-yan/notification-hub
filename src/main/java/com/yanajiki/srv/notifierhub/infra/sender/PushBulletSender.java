@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component;
 public class PushBulletSender implements NotificationSender {
     @Override
     public void send(Notification notification) {
-//        log.info("Sending notification by PUSH_BULLET: {}", notification);
+        log.info("Sending notification by PUSH_BULLET: {}", notification);
     }
 }

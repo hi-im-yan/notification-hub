@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface SmsScheduleNotificationMongoRepository extends MongoRepository<SmsScheduleNotificationData, String> {
     List<SmsScheduleNotificationData> findByScheduledTime(LocalDateTime scheduledTime);
+    void deleteByScheduledTimeLessThan(LocalDateTime time);
 }

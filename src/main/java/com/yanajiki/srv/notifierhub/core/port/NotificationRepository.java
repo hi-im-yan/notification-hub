@@ -10,4 +10,5 @@ public interface NotificationRepository {
     Notification persist(Notification notification);
     List<Notification> findByDateTime(LocalDateTime scheduledTime);
     void delete(Notification notification);
+    void deleteOverdue(int minutesOverdue);
 }

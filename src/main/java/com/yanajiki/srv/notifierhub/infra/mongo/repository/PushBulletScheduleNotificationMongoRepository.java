@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface PushBulletScheduleNotificationMongoRepository extends MongoRepository<PushBulletScheduleNotificationData, String> {
     List<PushBulletScheduleNotificationData> findByScheduledTime(LocalDateTime scheduledTime);
+    void deleteByScheduledTimeLessThan(LocalDateTime time);
 }
