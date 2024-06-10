@@ -1,5 +1,6 @@
 package com.yanajiki.srv.notifierhub.infra.http;
 
+import com.yanajiki.srv.notifierhub.infra.http.dto.TwillioResponse;
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,10 +12,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 public interface TwillioFeignClient {
 
     @PostMapping("/Accounts/{accountSID}/Messages.json")
-//    @Headers("Content-Type: application/x-www-form-urlencoded")
-    void sendMessage(@PathVariable("accountSID") String accountSID,
-                     @RequestBody String urlEncodedReqBody,
-                     @RequestHeader("Authorization") String authToken);
+    TwillioResponse sendMessage(@PathVariable("accountSID") String accountSID,
+                                @RequestBody String urlEncodedReqBody,
+                                @RequestHeader("Authorization") String authToken);
 }
 
 

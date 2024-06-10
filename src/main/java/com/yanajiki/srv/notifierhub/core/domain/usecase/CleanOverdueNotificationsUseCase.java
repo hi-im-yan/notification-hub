@@ -7,7 +7,7 @@ import java.util.List;
 
 @Slf4j
 public class CleanOverdueNotificationsUseCase {
-    private static final int MINUTES_OVERDUE = 2;
+    private static final int MINUTES_OVERDUE = 60 * 24 * 30;
 
     public void execute(List<NotificationRepository> repositories) {
         repositories.forEach(this::clean);
