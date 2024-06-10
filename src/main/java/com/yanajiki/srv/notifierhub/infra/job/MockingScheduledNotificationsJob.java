@@ -28,13 +28,13 @@ public class MockingScheduledNotificationsJob {
     }
 
     private void saveMockPendingNotifications() {
-//        for (int i = 0; i < 100; i++) {
-//            emailRepository.persist(generateMockNotification(NotificationType.EMAIL));
-//        }
-
         for (int i = 0; i < 1; i++) {
-            smsRepository.persist(generateMockNotification(NotificationType.SMS));
+            emailRepository.persist(generateMockNotification(NotificationType.EMAIL));
         }
+
+//        for (int i = 0; i < 1; i++) {
+//            smsRepository.persist(generateMockNotification(NotificationType.SMS));
+//        }
 
 //        for (int i = 0; i < 100; i++) {
 //            pushBulletRepository.persist(generateMockNotification(NotificationType.PUSHBULLET));
@@ -44,10 +44,11 @@ public class MockingScheduledNotificationsJob {
     private Notification generateMockNotification(NotificationType type) {
         return new Notification(
                 UUID.randomUUID().toString(),
-                "TWILLIO - TEST",
-                "+5567991526867",
-                "Integrated with TWILLIO successfully",
+                "RESEND - TEST",
+                "yanajiki@gmail.com",
+                "Amo muito minha namorada",
                 LocalDateTime.now().plusMinutes(1),
+                "Prova de que posso agendar uma mensagem pra ser enviada pra ela hihihi.",
                 type
         );
     }

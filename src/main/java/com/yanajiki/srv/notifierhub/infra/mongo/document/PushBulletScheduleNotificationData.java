@@ -23,6 +23,7 @@ public class PushBulletScheduleNotificationData implements INotificationData{
     private String receiver;
     private String message;
     private LocalDateTime scheduledTime;
+    private String subject;
     private NotificationType type;
 
     public void setType(NotificationType notificationType) {

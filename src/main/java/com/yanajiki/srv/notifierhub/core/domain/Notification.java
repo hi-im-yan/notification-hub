@@ -8,5 +8,6 @@ public record Notification(
         String receiver,
         String message,
         LocalDateTime scheduledTime,
+        String subject,
         NotificationType type) {
 }

@@ -11,5 +11,6 @@ public interface INotificationData {
     String getReceiver();
     String getMessage();
     LocalDateTime getScheduledTime();
+    String getSubject();
     NotificationType getType();
 }

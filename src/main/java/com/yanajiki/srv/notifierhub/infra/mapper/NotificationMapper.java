@@ -19,6 +19,7 @@ public class NotificationMapper {
                 notificationData.getReceiver(),
                 notificationData.getMessage(),
                 DateUtils.setSecondsAndNanoToZero(notificationData.getScheduledTime()),
+                notificationData.getSubject(),
                 notificationData.getType()
                 );
     }
@@ -31,6 +32,7 @@ public class NotificationMapper {
                 domainModel.receiver(),
                 domainModel.message(),
                 scheduledTime,
+                domainModel.subject(),
                 NotificationType.EMAIL
         );
     }
@@ -43,6 +45,7 @@ public class NotificationMapper {
                 domainModel.receiver(),
                 domainModel.message(),
                 scheduledTime,
+                domainModel.subject(),
                 NotificationType.SMS
         );
     }
@@ -55,6 +58,7 @@ public class NotificationMapper {
                 domainModel.receiver(),
                 domainModel.message(),
                 scheduledTime,
+                domainModel.subject(),
                 NotificationType.PUSHBULLET
         );
     }
