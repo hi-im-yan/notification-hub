@@ -3,10 +3,7 @@ package com.yanajiki.srv.notifierhub.infra.mapper;
 import com.yanajiki.srv.notifierhub.core.domain.Notification;
 import com.yanajiki.srv.notifierhub.core.domain.NotificationType;
 import com.yanajiki.srv.notifierhub.infra.kafka.dto.NotificationDTO;
-import com.yanajiki.srv.notifierhub.infra.mongo.document.EmailScheduleNotificationData;
-import com.yanajiki.srv.notifierhub.infra.mongo.document.INotificationData;
-import com.yanajiki.srv.notifierhub.infra.mongo.document.PushBulletScheduleNotificationData;
-import com.yanajiki.srv.notifierhub.infra.mongo.document.SmsScheduleNotificationData;
+import com.yanajiki.srv.notifierhub.infra.mongo.document.*;
 import com.yanajiki.srv.notifierhub.infra.utils.DateUtils;
 
 import java.time.LocalDateTime;
@@ -80,6 +77,19 @@ public class NotificationMapper {
                 scheduledTime,
                 domainModel.subject(),
                 NotificationType.PUSHBULLET
+        );
+    }
+
+    public static DiscordScheduleNotificationData toDiscordData(Notification domainModel) {
+        var scheduledTime = DateUtils.setSecondsAndNanoToZero(domainModel.scheduledTime());
+        return new DiscordScheduleNotificationData(
+                domainModel.id(),
+                domainModel.sender(),
+                domainModel.receiver(),
+                domainModel.message(),
+                scheduledTime,
+                domainModel.subject(),
+                NotificationType.DISCORD
         );
     }
 }

@@ -22,11 +22,16 @@ public class NotificationSchedulerListener {
 
     @Autowired
     public NotificationSchedulerListener(NotificationRepository emailNotificationRepository,
-                                         NotificationRepository smsNotificationRepository) {
+                                         NotificationRepository smsNotificationRepository,
+                                         NotificationRepository discordNotificationRepository,
+                                         NotificationRepository pushbulletNotificationRepository) {
 
         notificationRepositoryMap = new HashMap<>();
         notificationRepositoryMap.put(NotificationType.EMAIL, emailNotificationRepository);
         notificationRepositoryMap.put(NotificationType.SMS, smsNotificationRepository);
+        notificationRepositoryMap.put(NotificationType.DISCORD, discordNotificationRepository);
+        notificationRepositoryMap.put(NotificationType.PUSHBULLET, pushbulletNotificationRepository);
+
     }
 
     @KafkaListener(topics = "schedule-notification", containerFactory = "newNotificationSchedulerContainerFactory")
