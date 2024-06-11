@@ -2,14 +2,20 @@ package com.yanajiki.srv.notifierhub.infra.mapper;
 
 import com.yanajiki.srv.notifierhub.core.domain.Notification;
 import com.yanajiki.srv.notifierhub.core.domain.NotificationType;
+import com.yanajiki.srv.notifierhub.infra.kafka.dto.NotificationDTO;
 import com.yanajiki.srv.notifierhub.infra.mongo.document.EmailScheduleNotificationData;
 import com.yanajiki.srv.notifierhub.infra.mongo.document.INotificationData;
 import com.yanajiki.srv.notifierhub.infra.mongo.document.PushBulletScheduleNotificationData;
 import com.yanajiki.srv.notifierhub.infra.mongo.document.SmsScheduleNotificationData;
 import com.yanajiki.srv.notifierhub.infra.utils.DateUtils;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 public class NotificationMapper {
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
     public static Notification toDomainModel(INotificationData notificationData) {
 
@@ -22,6 +28,20 @@ public class NotificationMapper {
                 notificationData.getSubject(),
                 notificationData.getType()
                 );
+    }
+
+    public static Notification toDomainModel(NotificationDTO notificationDTO) {
+        LocalDateTime scheduledTime = LocalDateTime.parse(notificationDTO.getScheduledTime(), formatter);
+
+        return new Notification(
+                null,
+                notificationDTO.getSender(),
+                notificationDTO.getReceiver(),
+                notificationDTO.getMessage(),
+                DateUtils.setSecondsAndNanoToZero(scheduledTime),
+                notificationDTO.getSubject(),
+                notificationDTO.getType()
+        );
     }
 
     public static EmailScheduleNotificationData toEmailData(Notification domainModel) {

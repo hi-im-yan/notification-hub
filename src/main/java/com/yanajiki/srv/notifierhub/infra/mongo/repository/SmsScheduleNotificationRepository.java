@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@Service
 public class SmsScheduleNotificationRepository implements NotificationRepository {
 
     private final SmsScheduleNotificationMongoRepository mongoRepository;

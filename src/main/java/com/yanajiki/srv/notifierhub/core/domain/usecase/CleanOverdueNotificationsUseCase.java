@@ -1,13 +1,18 @@
 package com.yanajiki.srv.notifierhub.core.domain.usecase;
 
 import com.yanajiki.srv.notifierhub.core.port.NotificationRepository;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @Slf4j
+@RequiredArgsConstructor
 public class CleanOverdueNotificationsUseCase {
-    private static final int MINUTES_OVERDUE = 60 * 24 * 30;
+
+    @NonNull
+    private final Integer MINUTES_OVERDUE;
 
     public void execute(List<NotificationRepository> repositories) {
         repositories.forEach(this::clean);

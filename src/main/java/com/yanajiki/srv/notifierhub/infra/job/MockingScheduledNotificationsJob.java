@@ -28,9 +28,9 @@ public class MockingScheduledNotificationsJob {
     }
 
     private void saveMockPendingNotifications() {
-        for (int i = 0; i < 1; i++) {
-            emailRepository.persist(generateMockNotification(NotificationType.EMAIL));
-        }
+//        for (int i = 0; i < 1; i++) {
+//            emailRepository.persist(generateMockNotification(NotificationType.EMAIL));
+//        }
 
 //        for (int i = 0; i < 1; i++) {
 //            smsRepository.persist(generateMockNotification(NotificationType.SMS));
