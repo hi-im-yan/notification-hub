@@ -76,7 +76,7 @@ mvn spring-boot:run
 [⌬ Hexagonal Architecture](https://netflixtechblog.com/ready-for-changes-with-hexagonal-architecture-b315ec967749)
 <h3>Project Scope</h3>
 
-![project-scope](documentation/project_scope.PNG)
+![project-scope](documentation/project_scope.png)
 
 <h3>How to use</h3>
 
