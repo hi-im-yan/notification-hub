@@ -1,0 +1,6 @@
+{
+  "description": "Using resend API / auth field is separated by 'BEARER_AUTHTOKEN|SENDER_DOMAIN'",
+  "type": "EMAIL",
+  "name": "RESEND - TEST",
+  "auth": "auth.token.example|onboarding@resend.dev"
+}

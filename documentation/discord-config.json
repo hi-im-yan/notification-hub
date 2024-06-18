@@ -1,0 +1,6 @@
+{
+  "description": "Using Discord API / auth field is separated by 'BOT_TOKEN|GUILD_ID'",
+  "type": "DISCORD",
+  "name": "DISCORD - TEST",
+  "auth": "bot_token.example|guild_or_server_id.example"
+}

@@ -1,0 +1,6 @@
+{
+  "description": "Using PushBullet API / auth field is separated by 'AUTH_TOKEN'",
+  "type": "PUSHBULLET",
+  "name": "PUSHBULLET - TEST",
+  "auth": "auth_token.example"
+}

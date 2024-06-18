@@ -1,0 +1,7 @@
+{
+  "description": "Using twillio API / auth field is separated by 'ACCOUNT_SID|AUTHTOKEN|TWILLIO_PHONE_NUMBER'",
+  "recoveryCode": "RECOVERY_CODE",
+  "type": "SMS",
+  "name": "TWILLIO - TEST",
+  "auth": "account_sid.example|auth_token.example|+twillio_number.example"
+}
