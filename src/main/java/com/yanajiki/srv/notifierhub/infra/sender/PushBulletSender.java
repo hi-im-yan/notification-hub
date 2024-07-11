@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Order(3)
 @RequiredArgsConstructor
-public class PushBullerSender implements NotificationSender {
+public class PushBulletSender implements NotificationSender {
 
     private final PushBulletClient pushBulletClient;
     @Override

@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: notifier_hub_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - notification-network
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      - notification-network
+
+  kafka-1:
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: DOCKER_INTERNAL://kafka-1:29092,DOCKER_EXTERNAL://localhost:9092
+      KAFKA_LISTENERS: DOCKER_INTERNAL://0.0.0.0:29092,DOCKER_EXTERNAL://0.0.0.0:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER_INTERNAL:PLAINTEXT,DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER_INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+    networks:
+      - notification-network
+
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - 8085:9000
+    environment:
+      DYNAMIC_CONFIG_ENABLED: true
+      KAFKA_CLUSTERS_0_NAME: Notification_Hub_Cluster
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-1:29092
+      server.port: 9000
+    depends_on:
+      - kafka-1
+    networks:
+      - notification-network
+
+  ms-notification-hub:
+    container_name: notification-hub-api
+    image: yanajiki/notification-hub:latest
+    ports:
+      - 8080:8080
+    environment:
+      NOTIFICATION_HUB_KAFKA_SERVERS: kafka-1:29092
+      NOTIFICATION_HUB_MONGO_HOST: notifier_hub_mongo
+      NOTIFICATION_HUB_MONGO_DATABASE: notification_hub
+      NOTIFICATION_HUB_MONGO_PORT: 27017
+    depends_on:
+      - mongo
+      - kafka-ui
+    networks:
+      - notification-network
+
+networks:
+  notification-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:

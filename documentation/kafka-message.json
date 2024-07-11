@@ -1,0 +1,8 @@
+{
+  "sender": "RESEND",
+  "receiver": "receiver@gmail.com",
+  "message": "Some message",
+  "scheduledTime": "2024-07-10T18:14:00+00:00",
+  "subject": "documentation example",
+  "type": "EMAIL"
+}

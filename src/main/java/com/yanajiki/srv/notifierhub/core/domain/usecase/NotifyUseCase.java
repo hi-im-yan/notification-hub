@@ -24,10 +24,11 @@ public class NotifyUseCase {
         int pendingCount = pendingNotifications.size();
 
         if (pendingCount == 0) {
+            log.info("Zero notifications pending for the repository: {}", repository.getClass().getSimpleName());
             return;
         }
 
-        log.info("Found {} pending notifications for type [{}]", pendingCount, pendingNotifications.get(0).type());
+        log.info("Found {} pending notifications for type '{}'", pendingCount, pendingNotifications.get(0).type());
         pendingNotifications.forEach(pending -> {
             var log = sender.send(pending);
             logRepository.persist(log);
